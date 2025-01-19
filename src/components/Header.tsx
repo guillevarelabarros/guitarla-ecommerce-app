@@ -1,3 +1,4 @@
+// src/components/Header.tsx
 import { useMemo, Dispatch } from 'react';
 import {
   Box,
@@ -17,10 +18,16 @@ import type { CartActions } from '../reducers/cart-reducer';
 type HeaderProps = {
   cart: CartItem[];
   dispatch: Dispatch<CartActions>;
+  toggleColorMode: () => void; // para alternar modo
+  mode: 'light' | 'dark';
 };
 
-export default function Header({ cart, dispatch }: HeaderProps) {
-  // State Derivado
+export default function Header({
+  cart,
+  dispatch,
+  toggleColorMode,
+  mode,
+}: HeaderProps) {
   const isEmpty = useMemo(() => cart.length === 0, [cart]);
   const cartTotal = useMemo(
     () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
@@ -50,10 +57,15 @@ export default function Header({ cart, dispatch }: HeaderProps) {
             xs={12}
             md={6}
             display='flex'
-            alignItems='flex-start'
+            alignItems='center'
             justifyContent='flex-end'
             sx={{ mt: { xs: 3, md: 0 } }}
           >
+            {/* Botón para alternar modo claro/oscuro */}
+            <Button variant='outlined' onClick={toggleColorMode} sx={{ mr: 2 }}>
+              {mode === 'light' ? 'Modo Oscuro' : 'Modo Claro'}
+            </Button>
+
             {/* Carrito */}
             <Box className='carrito'>
               <img
@@ -61,8 +73,6 @@ export default function Header({ cart, dispatch }: HeaderProps) {
                 src='/img/carrito.png'
                 alt='imagen carrito'
               />
-
-              {/* Aquí se despliega el contenido al hacer hover */}
               <Box id='carrito'>
                 {isEmpty ? (
                   <Typography align='center'>El carrito está vacío</Typography>
@@ -93,7 +103,6 @@ export default function Header({ cart, dispatch }: HeaderProps) {
                               <strong>${guitar.price}</strong>
                             </TableCell>
                             <TableCell>
-                              {/* Ajuste de cantidad */}
                               <Box display='flex' alignItems='center' gap={1}>
                                 <Button
                                   variant='contained'

@@ -1,10 +1,17 @@
+// src/App.tsx
 import { useReducer, useEffect } from 'react';
 import { Container, Typography, Grid, Box } from '@mui/material';
 import Guitar from './components/Guitar';
 import Header from './components/Header';
 import { cartReducer, initialState } from './reducers/cart-reducer';
 
-function App() {
+// Tipado de las props que vienen de main.tsx
+type AppProps = {
+  toggleColorMode: () => void;
+  mode: 'light' | 'dark'; // PaletteMode
+};
+
+function App({ toggleColorMode, mode }: AppProps) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
@@ -13,9 +20,14 @@ function App() {
 
   return (
     <>
-      <Header cart={state.cart} dispatch={dispatch} />
+      {/* Pasamos toggleColorMode y mode al Header para que haya un botón de cambio */}
+      <Header
+        cart={state.cart}
+        dispatch={dispatch}
+        toggleColorMode={toggleColorMode}
+        mode={mode}
+      />
 
-      {/* Contenedor principal */}
       <Container sx={{ mt: 5 }}>
         <Typography
           variant='h4'
@@ -26,7 +38,6 @@ function App() {
           Nuestra Colección
         </Typography>
 
-        {/* Grid para las guitarras */}
         <Grid container spacing={3} sx={{ mt: 3 }}>
           {state.data.map(guitar => (
             <Grid item xs={12} sm={6} md={4} key={guitar.id}>
@@ -36,11 +47,11 @@ function App() {
         </Grid>
       </Container>
 
-      {/* Footer */}
       <Box
         component='footer'
         sx={{
-          backgroundColor: '#262626',
+          // En vez de color fijo, usamos la paleta del theme:
+          backgroundColor: 'background.paper',
           mt: 5,
           py: 5,
         }}
@@ -49,7 +60,7 @@ function App() {
           <Typography
             variant='body1'
             align='center'
-            sx={{ color: '#fff', fontSize: '1.25rem', mt: 2 }}
+            sx={{ color: 'text.primary', fontSize: '1.25rem', mt: 2 }}
           >
             GuitarLA - Todos los derechos Reservados
           </Typography>
