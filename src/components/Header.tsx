@@ -1,106 +1,165 @@
-import { useMemo, Dispatch } from "react"
-import type { CartItem } from "../types"
-import type { CartActions } from "../reducers/cart-reducer"
+import { useMemo, Dispatch } from 'react';
+import {
+  Box,
+  Grid,
+  Typography,
+  Table,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+  Button,
+  Container,
+} from '@mui/material';
+import type { CartItem } from '../types';
+import type { CartActions } from '../reducers/cart-reducer';
 
 type HeaderProps = {
-    cart: CartItem[]
-    dispatch: Dispatch<CartActions>
-}
+  cart: CartItem[];
+  dispatch: Dispatch<CartActions>;
+};
 
-export default function Header({ cart,  dispatch } : HeaderProps ) {
+export default function Header({ cart, dispatch }: HeaderProps) {
+  // State Derivado
+  const isEmpty = useMemo(() => cart.length === 0, [cart]);
+  const cartTotal = useMemo(
+    () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
+    [cart]
+  );
 
-    // State Derivado
-    const isEmpty = useMemo( () => cart.length === 0, [cart])
-    const cartTotal = useMemo( () => cart.reduce( (total, item ) => total + (item.quantity * item.price), 0), [cart] )
+  return (
+    <Box component='header' className='header' sx={{ py: 5 }}>
+      <Container>
+        <Grid
+          container
+          alignItems='flex-start'
+          justifyContent={{ xs: 'center', md: 'space-between' }}
+        >
+          <Grid item xs={8} md={3}>
+            <a href='index.html'>
+              <img
+                style={{ maxWidth: '100%' }}
+                src='/img/logo.svg'
+                alt='imagen logo'
+              />
+            </a>
+          </Grid>
 
-    return (
-        <header className="py-5 header">
-            <div className="container-xl">
-                <div className="row justify-content-center justify-content-md-between">
-                    <div className="col-8 col-md-3">
-                        <a href="index.html">
-                            <img className="img-fluid" src="/img/logo.svg" alt="imagen logo" />
-                        </a>
-                    </div>
-                    <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
-                        <div 
-                            className="carrito"
-                        >
-                            <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
+          <Grid
+            item
+            xs={12}
+            md={6}
+            display='flex'
+            alignItems='flex-start'
+            justifyContent='flex-end'
+            sx={{ mt: { xs: 3, md: 0 } }}
+          >
+            {/* Carrito */}
+            <Box className='carrito'>
+              <img
+                style={{ maxWidth: '100%' }}
+                src='/img/carrito.png'
+                alt='imagen carrito'
+              />
 
-                            <div id="carrito" className="bg-white p-3">
-                                {isEmpty ? (
-                                    <p className="text-center">El carrito esta vacio</p>
-                                ) : (
-                                <>
-                                    <table className="w-100 table">
-                                        <thead>
-                                            <tr>
-                                                <th>Imagen</th>
-                                                <th>Nombre</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {cart.map( guitar => (
-                                                <tr key={guitar.id}>
-                                                    <td>
-                                                        <img 
-                                                            className="img-fluid" 
-                                                            src={`/img/${guitar.image}.jpg`}
-                                                            alt="imagen guitarra" 
-                                                        />
-                                                    </td>
-                                                    <td>{guitar.name}</td>
-                                                    <td className="fw-bold">
-                                                        ${guitar.price}
-                                                    </td>
-                                                    <td className="flex align-items-start gap-4">
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-dark"
-                                                            onClick={() => dispatch({type: 'decrease-quantity', payload: {id: guitar.id}}) }
-                                                        >
-                                                            -
-                                                        </button>
-                                                            {guitar.quantity}
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-dark"
-                                                            onClick={() => dispatch({type: 'increase-quantity', payload: {id: guitar.id}})}
-                                                        >
-                                                            +
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <button
-                                                            className="btn btn-danger"
-                                                            type="button"
-                                                            onClick={() => dispatch({type: 'remove-from-cart', payload : {id: guitar.id}})}
-                                                        >
-                                                            X
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+              {/* Aquí se despliega el contenido al hacer hover */}
+              <Box id='carrito'>
+                {isEmpty ? (
+                  <Typography align='center'>El carrito está vacío</Typography>
+                ) : (
+                  <>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Imagen</TableCell>
+                          <TableCell>Nombre</TableCell>
+                          <TableCell>Precio</TableCell>
+                          <TableCell>Cantidad</TableCell>
+                          <TableCell></TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {cart.map(guitar => (
+                          <TableRow key={guitar.id}>
+                            <TableCell>
+                              <img
+                                style={{ width: '50px' }}
+                                src={`/img/${guitar.image}.jpg`}
+                                alt={`Imagen de ${guitar.name}`}
+                              />
+                            </TableCell>
+                            <TableCell>{guitar.name}</TableCell>
+                            <TableCell>
+                              <strong>${guitar.price}</strong>
+                            </TableCell>
+                            <TableCell>
+                              {/* Ajuste de cantidad */}
+                              <Box display='flex' alignItems='center' gap={1}>
+                                <Button
+                                  variant='contained'
+                                  color='inherit'
+                                  onClick={() =>
+                                    dispatch({
+                                      type: 'decrease-quantity',
+                                      payload: { id: guitar.id },
+                                    })
+                                  }
+                                >
+                                  -
+                                </Button>
+                                {guitar.quantity}
+                                <Button
+                                  variant='contained'
+                                  color='inherit'
+                                  onClick={() =>
+                                    dispatch({
+                                      type: 'increase-quantity',
+                                      payload: { id: guitar.id },
+                                    })
+                                  }
+                                >
+                                  +
+                                </Button>
+                              </Box>
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                variant='contained'
+                                color='error'
+                                onClick={() =>
+                                  dispatch({
+                                    type: 'remove-from-cart',
+                                    payload: { id: guitar.id },
+                                  })
+                                }
+                              >
+                                X
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                    <Typography align='right' sx={{ mt: 1 }}>
+                      Total a pagar: <strong>${cartTotal}</strong>
+                    </Typography>
+                  </>
+                )}
 
-                                    <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
-                                </>
-                                )}
-
-                                <button 
-                                    className="btn btn-dark w-100 mt-3 p-2"
-                                    onClick={() => dispatch({type: 'clear-cart'})}
-                                >Vaciar Carrito</button>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </header>
-    )
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  fullWidth
+                  sx={{ mt: 2 }}
+                  onClick={() => dispatch({ type: 'clear-cart' })}
+                >
+                  Vaciar Carrito
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
 }
