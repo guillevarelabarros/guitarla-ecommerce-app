@@ -7,15 +7,14 @@ export const getTheme = (mode: PaletteMode) => {
     palette: {
       mode,
       primary: {
-        main: '#e99401', // Color principal (puedes cambiarlo)
+        main: '#e99401', // Color principal
       },
       secondary: {
-        main: '#f50057', // Color secundario (puedes cambiarlo)
+        main: '#f50057', // Color secundario
       },
-      // Puedes agregar más colores: error, warning, info, etc.
     },
     typography: {
-      fontFamily: ['Outfit', 'sans-serif'].join(','), // Tu fuente preferida
+      fontFamily: ['Outfit', 'sans-serif'].join(','),
     },
   });
 };

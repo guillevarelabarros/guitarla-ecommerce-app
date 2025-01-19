@@ -11,7 +11,10 @@ import {
   TableCell,
   Button,
   Container,
+  IconButton,
 } from '@mui/material';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import type { CartItem } from '../types';
 import type { CartActions } from '../reducers/cart-reducer';
 
@@ -61,10 +64,27 @@ export default function Header({
             justifyContent='flex-end'
             sx={{ mt: { xs: 3, md: 0 } }}
           >
-            {/* Botón para alternar modo claro/oscuro */}
-            <Button variant='outlined' onClick={toggleColorMode} sx={{ mr: 2 }}>
-              {mode === 'light' ? 'Modo Oscuro' : 'Modo Claro'}
-            </Button>
+            {/* IconButton para alternar modo claro/oscuro */}
+            <IconButton
+              onClick={toggleColorMode}
+              sx={{
+                mr: 2,
+                backgroundColor:
+                  mode === 'light' ? '#fff' : 'rgba(255,255,255,0.1)',
+                p: 1,
+                borderRadius: '50%',
+                '&:hover': {
+                  backgroundColor:
+                    mode === 'light' ? '#f0f0f0' : 'rgba(255,255,255,0.2)',
+                },
+              }}
+            >
+              {mode === 'light' ? (
+                <DarkModeIcon sx={{ fontSize: 28, color: '#000' }} />
+              ) : (
+                <LightModeIcon sx={{ fontSize: 28, color: '#fff' }} />
+              )}
+            </IconButton>
 
             {/* Carrito */}
             <Box className='carrito'>
@@ -75,34 +95,40 @@ export default function Header({
               />
               <Box id='carrito'>
                 {isEmpty ? (
-                  <Typography align='center'>El carrito está vacío</Typography>
+                  <Typography align='center' sx={{ color: 'black' }}>
+                    El carrito está vacío
+                  </Typography>
                 ) : (
                   <>
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell>Imagen</TableCell>
-                          <TableCell>Nombre</TableCell>
-                          <TableCell>Precio</TableCell>
-                          <TableCell>Cantidad</TableCell>
+                          <TableCell sx={{ color: 'black' }}>Imagen</TableCell>
+                          <TableCell sx={{ color: 'black' }}>Nombre</TableCell>
+                          <TableCell sx={{ color: 'black' }}>Precio</TableCell>
+                          <TableCell sx={{ color: 'black' }}>
+                            Cantidad
+                          </TableCell>
                           <TableCell></TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         {cart.map(guitar => (
                           <TableRow key={guitar.id}>
-                            <TableCell>
+                            <TableCell sx={{ color: 'black' }}>
                               <img
                                 style={{ width: '50px' }}
                                 src={`/img/${guitar.image}.jpg`}
                                 alt={`Imagen de ${guitar.name}`}
                               />
                             </TableCell>
-                            <TableCell>{guitar.name}</TableCell>
-                            <TableCell>
+                            <TableCell sx={{ color: 'black' }}>
+                              {guitar.name}
+                            </TableCell>
+                            <TableCell sx={{ color: 'black' }}>
                               <strong>${guitar.price}</strong>
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={{ color: 'black' }}>
                               <Box display='flex' alignItems='center' gap={1}>
                                 <Button
                                   variant='contained'
@@ -113,6 +139,15 @@ export default function Header({
                                       payload: { id: guitar.id },
                                     })
                                   }
+                                  sx={{
+                                    backgroundColor:
+                                      mode === 'dark' ? '#424242' : undefined,
+                                    color: mode === 'dark' ? '#fff' : undefined,
+                                    '&:hover': {
+                                      backgroundColor:
+                                        mode === 'dark' ? '#616161' : undefined,
+                                    },
+                                  }}
                                 >
                                   -
                                 </Button>
@@ -126,6 +161,15 @@ export default function Header({
                                       payload: { id: guitar.id },
                                     })
                                   }
+                                  sx={{
+                                    backgroundColor:
+                                      mode === 'dark' ? '#424242' : undefined,
+                                    color: mode === 'dark' ? '#fff' : undefined,
+                                    '&:hover': {
+                                      backgroundColor:
+                                        mode === 'dark' ? '#616161' : undefined,
+                                    },
+                                  }}
                                 >
                                   +
                                 </Button>
@@ -149,7 +193,7 @@ export default function Header({
                         ))}
                       </TableBody>
                     </Table>
-                    <Typography align='right' sx={{ mt: 1 }}>
+                    <Typography align='right' sx={{ mt: 1, color: 'black' }}>
                       Total a pagar: <strong>${cartTotal}</strong>
                     </Typography>
                   </>

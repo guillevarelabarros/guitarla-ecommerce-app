@@ -30,10 +30,17 @@ function App({ toggleColorMode, mode }: AppProps) {
 
       <Container sx={{ mt: 5 }}>
         <Typography
-          variant='h4'
+          variant='h3'
           align='center'
           gutterBottom
-          sx={{ fontWeight: 900 }}
+          sx={{
+            fontWeight: 900,
+            background: 'linear-gradient(45deg, #e99401, #f50057)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+            mb: 4,
+          }}
         >
           Nuestra Colección
         </Typography>
