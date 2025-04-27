@@ -5,10 +5,9 @@ import Guitar from './components/Guitar';
 import Header from './components/Header';
 import { cartReducer, initialState } from './reducers/cart-reducer';
 
-// Tipado de las props que vienen de main.tsx
 type AppProps = {
   toggleColorMode: () => void;
-  mode: 'light' | 'dark'; // PaletteMode
+  mode: 'light' | 'dark';
 };
 
 function App({ toggleColorMode, mode }: AppProps) {
@@ -20,7 +19,6 @@ function App({ toggleColorMode, mode }: AppProps) {
 
   return (
     <>
-      {/* Pasamos toggleColorMode y mode al Header para que haya un botón de cambio */}
       <Header
         cart={state.cart}
         dispatch={dispatch}
@@ -42,7 +40,7 @@ function App({ toggleColorMode, mode }: AppProps) {
             mb: 4,
           }}
         >
-          Nuestra Colección
+          Our Collection
         </Typography>
 
         <Grid container spacing={3} sx={{ mt: 3 }}>
@@ -57,7 +55,6 @@ function App({ toggleColorMode, mode }: AppProps) {
       <Box
         component='footer'
         sx={{
-          // En vez de color fijo, usamos la paleta del theme:
           backgroundColor: 'background.paper',
           mt: 5,
           py: 5,
@@ -69,7 +66,7 @@ function App({ toggleColorMode, mode }: AppProps) {
             align='center'
             sx={{ color: 'text.primary', fontSize: '1.25rem', mt: 2 }}
           >
-            GuitarLA - Todos los derechos Reservados
+            GuitarLA - All rights reserved
           </Typography>
         </Container>
       </Box>

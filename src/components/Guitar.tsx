@@ -30,16 +30,15 @@ export default function Guitar({ guitar, dispatch }: GuitarProps) {
         transition: 'transform 0.2s ease-in-out',
         '&:hover': {
           transform: 'scale(1.02)',
-          boxShadow: 6, // Eleva la sombra para enfatizar el efecto
+          boxShadow: 6,
         },
       }}
       elevation={3}
     >
-      {/* Imagen de la guitarra */}
       <CardMedia
         component='img'
         image={`/img/${image}.jpg`}
-        alt={`Imagen de la guitarra ${name}`}
+        alt={`Image of the guitar ${name}`}
         sx={{
           width: { xs: '100%', sm: 150 },
           height: 'auto',
@@ -48,7 +47,6 @@ export default function Guitar({ guitar, dispatch }: GuitarProps) {
         }}
       />
 
-      {/* Contenido de la guitarra */}
       <Box flex={1}>
         <CardContent sx={{ p: 0, mb: 2 }}>
           <Typography
@@ -87,7 +85,7 @@ export default function Guitar({ guitar, dispatch }: GuitarProps) {
               dispatch({ type: 'add-to-cart', payload: { item: guitar } })
             }
           >
-            Agregar al Carrito
+            Add to Cart
           </Button>
         </CardActions>
       </Box>

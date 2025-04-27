@@ -21,7 +21,7 @@ import type { CartActions } from '../reducers/cart-reducer';
 type HeaderProps = {
   cart: CartItem[];
   dispatch: Dispatch<CartActions>;
-  toggleColorMode: () => void; // para alternar modo
+  toggleColorMode: () => void;
   mode: 'light' | 'dark';
 };
 
@@ -50,7 +50,7 @@ export default function Header({
               <img
                 style={{ maxWidth: '100%' }}
                 src='/img/logo.svg'
-                alt='imagen logo'
+                alt='logo image'
               />
             </a>
           </Grid>
@@ -64,7 +64,6 @@ export default function Header({
             justifyContent='flex-end'
             sx={{ mt: { xs: 3, md: 0 } }}
           >
-            {/* IconButton para alternar modo claro/oscuro */}
             <IconButton
               onClick={toggleColorMode}
               sx={{
@@ -86,28 +85,27 @@ export default function Header({
               )}
             </IconButton>
 
-            {/* Carrito */}
             <Box className='carrito'>
               <img
                 style={{ maxWidth: '100%' }}
                 src='/img/carrito.png'
-                alt='imagen carrito'
+                alt='cart image'
               />
               <Box id='carrito'>
                 {isEmpty ? (
                   <Typography align='center' sx={{ color: 'black' }}>
-                    El carrito está vacío
+                    The cart is empty
                   </Typography>
                 ) : (
                   <>
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell sx={{ color: 'black' }}>Imagen</TableCell>
-                          <TableCell sx={{ color: 'black' }}>Nombre</TableCell>
-                          <TableCell sx={{ color: 'black' }}>Precio</TableCell>
+                          <TableCell sx={{ color: 'black' }}>Image</TableCell>
+                          <TableCell sx={{ color: 'black' }}>Name</TableCell>
+                          <TableCell sx={{ color: 'black' }}>Price</TableCell>
                           <TableCell sx={{ color: 'black' }}>
-                            Cantidad
+                            Quantity
                           </TableCell>
                           <TableCell></TableCell>
                         </TableRow>
@@ -119,7 +117,7 @@ export default function Header({
                               <img
                                 style={{ width: '50px' }}
                                 src={`/img/${guitar.image}.jpg`}
-                                alt={`Imagen de ${guitar.name}`}
+                                alt={`Image of ${guitar.name}`}
                               />
                             </TableCell>
                             <TableCell sx={{ color: 'black' }}>
@@ -194,11 +192,10 @@ export default function Header({
                       </TableBody>
                     </Table>
                     <Typography align='right' sx={{ mt: 1, color: 'black' }}>
-                      Total a pagar: <strong>${cartTotal}</strong>
+                      Total: <strong>${cartTotal}</strong>
                     </Typography>
                   </>
                 )}
-
                 <Button
                   variant='contained'
                   color='secondary'
@@ -206,7 +203,7 @@ export default function Header({
                   sx={{ mt: 2 }}
                   onClick={() => dispatch({ type: 'clear-cart' })}
                 >
-                  Vaciar Carrito
+                  Clear Cart
                 </Button>
               </Box>
             </Box>
