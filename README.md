@@ -95,7 +95,7 @@ If you liked this project, please ⭐ it and feel free to connect!
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/guitarla-ts-usereducer.git
+git clone https://github.com/guillevarelabarros/guitarla-ecommerce-app.git
 cd guitarla-ts-usereducer
 
 # Install dependencies
