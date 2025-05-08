@@ -48,7 +48,7 @@ Light/Dark mode configuration │ └── index.css # Custom styles
 
 > Try the live version (optional):  
 > 🔗
-> [https://your-deployment-url.vercel.app](https://your-deployment-url.vercel.app)
+> [https://your-deployment-url.vercel.app](https://guitarla-ecommerce-app.netlify.app/)
 
 ---
 
@@ -84,8 +84,8 @@ Light/Dark mode configuration │ └── index.css # Custom styles
 
 ## 🧑‍💻 Author
 
-**Guille Varela Barros** – [LinkedIn](https://www.linkedin.com/in/tuusuario) |
-[Portfolio](https://tuportafolio.com)
+**Guille Varela Barros** – [LinkedIn](www.linkedin.com/in/guillevarelabarros) |
+[Github](https://github.com/guillevarelabarros)
 
 If you liked this project, please ⭐ it and feel free to connect!
 
@@ -104,7 +104,4 @@ yarn install
 # Start development server
 yarn dev
 
-
-✅ License
-This project is open source and available under the MIT License.
 ```
