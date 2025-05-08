@@ -1,4 +1,3 @@
-// src/App.tsx
 import { useReducer, useEffect } from 'react';
 import { Container, Typography, Grid, Box } from '@mui/material';
 import Guitar from './components/Guitar';
@@ -26,7 +25,7 @@ function App({ toggleColorMode, mode }: AppProps) {
         mode={mode}
       />
 
-      <Container sx={{ mt: 5 }}>
+      <Container sx={{ mt: 5, px: { xs: 2, sm: 3, md: 4 } }}>
         <Typography
           variant='h3'
           align='center'
@@ -38,12 +37,13 @@ function App({ toggleColorMode, mode }: AppProps) {
             WebkitTextFillColor: 'transparent',
             textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
             mb: 4,
+            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
           }}
         >
           Our Collection
         </Typography>
 
-        <Grid container spacing={3} sx={{ mt: 3 }}>
+        <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
           {state.data.map(guitar => (
             <Grid item xs={12} sm={6} md={4} key={guitar.id}>
               <Guitar guitar={guitar} dispatch={dispatch} />
@@ -57,14 +57,18 @@ function App({ toggleColorMode, mode }: AppProps) {
         sx={{
           backgroundColor: 'background.paper',
           mt: 5,
-          py: 5,
+          py: { xs: 3, sm: 5 },
+          px: { xs: 2, sm: 3 },
         }}
       >
         <Container>
           <Typography
             variant='body1'
             align='center'
-            sx={{ color: 'text.primary', fontSize: '1.25rem', mt: 2 }}
+            sx={{
+              color: 'text.primary',
+              fontSize: { xs: '1rem', sm: '1.25rem' },
+            }}
           >
             GuitarLA - All rights reserved
           </Typography>

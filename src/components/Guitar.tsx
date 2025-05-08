@@ -24,7 +24,7 @@ export default function Guitar({ guitar, dispatch }: GuitarProps) {
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', sm: 'row' },
-        alignItems: 'center',
+        alignItems: { xs: 'stretch', sm: 'center' },
         gap: 2,
         p: 2,
         transition: 'transform 0.2s ease-in-out',
@@ -32,6 +32,7 @@ export default function Guitar({ guitar, dispatch }: GuitarProps) {
           transform: 'scale(1.02)',
           boxShadow: 6,
         },
+        height: '100%',
       }}
       elevation={3}
     >
@@ -47,7 +48,12 @@ export default function Guitar({ guitar, dispatch }: GuitarProps) {
         }}
       />
 
-      <Box flex={1}>
+      <Box
+        flex={1}
+        display='flex'
+        flexDirection='column'
+        justifyContent='space-between'
+      >
         <CardContent sx={{ p: 0, mb: 2 }}>
           <Typography
             variant='h6'
@@ -67,11 +73,7 @@ export default function Guitar({ guitar, dispatch }: GuitarProps) {
 
           <Typography
             variant='h5'
-            sx={{
-              fontWeight: 900,
-              color: 'primary.main',
-              mb: 1,
-            }}
+            sx={{ fontWeight: 900, color: 'primary.main', mb: 1 }}
           >
             ${price}
           </Typography>
